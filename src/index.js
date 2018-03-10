@@ -27,7 +27,7 @@ module.exports = function getZerosCount(number, base) {
     // base = 72;
     var result = simple(base);
     // number = 1000;
-   
+
     var a = [];
     var resultlength = result.length;
 
@@ -35,7 +35,7 @@ module.exports = function getZerosCount(number, base) {
     for (var i = 0; i < resultlength; i++) {
         p.add(result[i])
     }
-   
+    // console.log('p=', p);
 
     var power = 0;
     var temp = result[0];
@@ -49,7 +49,7 @@ module.exports = function getZerosCount(number, base) {
     }
 
 
-   
+    //  console.log('a=', a, 'p=', p);
     var sa = [];
     var pp = [];
     var i = 0;
@@ -59,31 +59,36 @@ module.exports = function getZerosCount(number, base) {
         i++;
 
     }
-  
+    // console.log('sa=', sa, 'pp=', pp);
 
     for (var i = 2; i <= number; i++) {
         tmp = i;
-        var j = 0;
-        for (var value of p.values()) { //цикл по всем простым числам, составляющим основание, в примере L должно быть равно 2
-            while (!(tmp % value)) {
-                tmp = tmp / value;
+
+        // var j = 0;
+        for (j = 0; j < pp.length; j++) {
+            // for (var value of p.values()) { //цикл по всем простым числам, составляющим основание
+            while (!(tmp % pp[j])) {
+                tmp = tmp / pp[j];
+                // console.log('i= ', i, 'j= ', j, 'p = ', value, 'sa= ', sa[j]);
                 sa[j]++;
             } //считаем кол-во степеней
-            j++;
+
+            //  j++;
+
         }
     }
-  
+    //  console.log('sa= ', sa);
 
     tmp = Math.floor(sa[0] / a[0]);
- 
+    // console.log('tmp = ', tmp);
 
     for (var i = 0; i < pp.length; i++) {
         if (tmp > Math.floor(sa[i] / a[i]))
             tmp = Math.floor(sa[i] / a[i]);
-
+        //   console.log('i=', i, 'sa= ', sa[i], 'pp = ', pp[i], 'tmp = ', tmp);
 
     }
-
+    //  console.log('tmp=', tmp);
     return tmp;
 
 }
